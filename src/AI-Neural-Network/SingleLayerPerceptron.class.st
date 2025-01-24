@@ -1,3 +1,29 @@
+"
+```smalltalk
+| perceptron trainingSamples epochs |
+perceptron := SingleLayerPerceptron new.
+
+""Suppose we have some training data for a simple logical OR problem with 2 inputs.""
+trainingSamples := {
+    (#(0 0) -> 0).
+    (#(0 1) -> 1).
+    (#(1 0) -> 1).
+    (#(1 1) -> 1).
+}.
+
+epochs := 1000.
+1 to: epochs do: [:epoch |
+    trainingSamples do: [:assoc |
+        perceptron trainOn: assoc key label: assoc value ].
+].
+
+""Now test the perceptron""
+Transcript cr; show: 'Predict (0 0): ', (perceptron predict: #(0 0)) printString.
+Transcript cr; show: 'Predict (1 0): ', (perceptron predict: #(1 0)) printString.
+Transcript cr; show: 'Predict (0 1): ', (perceptron predict: #(0 1)) printString.
+Transcript cr; show: 'Predict (1 1): ', (perceptron predict: #(1 1)) printString.
+```
+"
 Class {
 	#name : 'SingleLayerPerceptron',
 	#superclass : 'Object',
@@ -18,6 +44,8 @@ SingleLayerPerceptron >> activation: z [
 
 { #category : 'initialization' }
 SingleLayerPerceptron >> initialize [
+
+	 super initialize.
     "Initialize with zero weights, zero bias, and a default learning rate."
     weights := #(0 0) asFloatArray.  "Example: 2 inputs -> array of length 2."
     bias := 0.0.
