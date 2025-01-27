@@ -1,3 +1,8 @@
+"
+The Sigmoid class is a subclass of Activation that implements the sigmoid activation function. It provides:
+- value: Computes the sigmoid value for a given input.
+- derivative: Computes the derivative of the sigmoid function for a given input.
+"
 Class {
 	#name : 'Sigmoid',
 	#superclass : 'Activation',

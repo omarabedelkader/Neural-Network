@@ -1,3 +1,8 @@
+"
+The MeanSquaredError class is a subclass of LossFunction that computes the Mean Squared Error (MSE) loss. It includes:
+- value:targets:: Calculates the MSE loss between predictions and targets.
+- derivative:targets:: Computes the gradient of the MSE loss for backpropagation.
+"
 Class {
 	#name : 'MeanSquaredError',
 	#superclass : 'LossFunction',

@@ -1,3 +1,12 @@
+"
+The DenseLayer class represents a fully connected neural network layer. It manages the weights, biases, and forward/backward operations for this layer. Key instance variables include:
+- inputSize: The number of input nodes.
+- outputSize: The number of output nodes.
+- weights: Weight matrix connecting inputs to outputs.
+- biases: Bias vector for each output.
+- activation: Activation function applied to the layer's outputs.
+- lastInput, lastZ, lastOutput: Intermediate values stored during forward propagation for use in backpropagation.
+"
 Class {
 	#name : 'DenseLayer',
 	#superclass : 'Object',

@@ -1,3 +1,14 @@
+"
+The NeuralNetwork class manages the structure of a neural network and provides methods for training, predicting, and performing forward/backward propagation. Key instance variables and methods include:
+
+- layers: An ordered collection of layers in the network.
+- lossFunction: The loss function used for training.
+- learningRate: Learning rate for weight updates.
+- addLayer:: Adds a layer to the network.
+- forward:: Performs a forward pass through the network.
+- backward:targets:: Performs backpropagation to calculate gradients and update weights.
+- trainOn:epochs:: Trains the network on a dataset for a specified number of epochs.
+"
 Class {
 	#name : 'NeuralNetwork',
 	#superclass : 'Object',
