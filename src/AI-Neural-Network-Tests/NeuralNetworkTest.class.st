@@ -24,7 +24,7 @@ NeuralNetworkTest >> tearDown [
 ]
 
 { #category : 'tests' }
-NeuralNetworkTest >> testBackwardTargets [
+NeuralNetworkTest >> testBackward [
 
     "We do a simple test with a single dense layer."
     | net layer input targets predictions finalGrad |
