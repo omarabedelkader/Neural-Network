@@ -4,6 +4,7 @@ Activation Class serves as the base class for activation functions in the neural
 Class {
 	#name : 'Activation',
 	#superclass : 'Object',
-	#category : 'AI-Neural-Network',
-	#package : 'AI-Neural-Network'
+	#category : 'AI-Neural-Network-Activation',
+	#package : 'AI-Neural-Network',
+	#tag : 'Activation'
 }

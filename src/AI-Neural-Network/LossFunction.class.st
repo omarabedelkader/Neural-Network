@@ -4,6 +4,7 @@ The LossFunction class is an abstract base class for implementing loss functions
 Class {
 	#name : 'LossFunction',
 	#superclass : 'Object',
-	#category : 'AI-Neural-Network',
-	#package : 'AI-Neural-Network'
+	#category : 'AI-Neural-Network-Loss Function',
+	#package : 'AI-Neural-Network',
+	#tag : 'Loss Function'
 }

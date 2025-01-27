@@ -20,8 +20,9 @@ Class {
 		'lastZ',
 		'lastOutput'
 	],
-	#category : 'AI-Neural-Network',
-	#package : 'AI-Neural-Network'
+	#category : 'AI-Neural-Network-Layers',
+	#package : 'AI-Neural-Network',
+	#tag : 'Layers'
 }
 
 { #category : 'accessing' }

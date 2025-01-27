@@ -6,8 +6,9 @@ The MeanSquaredError class is a subclass of LossFunction that computes the Mean 
 Class {
 	#name : 'MeanSquaredError',
 	#superclass : 'LossFunction',
-	#category : 'AI-Neural-Network',
-	#package : 'AI-Neural-Network'
+	#category : 'AI-Neural-Network-Loss Function',
+	#package : 'AI-Neural-Network',
+	#tag : 'Loss Function'
 }
 
 { #category : 'scoring' }

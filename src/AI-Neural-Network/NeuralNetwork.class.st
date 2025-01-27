@@ -17,8 +17,9 @@ Class {
 		'lossFunction',
 		'learningRate'
 	],
-	#category : 'AI-Neural-Network',
-	#package : 'AI-Neural-Network'
+	#category : 'AI-Neural-Network-NN',
+	#package : 'AI-Neural-Network',
+	#tag : 'NN'
 }
 
 { #category : 'initialization' }

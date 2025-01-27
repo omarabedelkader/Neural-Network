@@ -32,8 +32,9 @@ Class {
 		'bias',
 		'learningRate'
 	],
-	#category : 'AI-Neural-Network',
-	#package : 'AI-Neural-Network'
+	#category : 'AI-Neural-Network-Perceptron',
+	#package : 'AI-Neural-Network',
+	#tag : 'Perceptron'
 }
 
 { #category : 'initialization' }

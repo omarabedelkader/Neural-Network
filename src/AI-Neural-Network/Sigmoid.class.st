@@ -6,8 +6,9 @@ The Sigmoid class is a subclass of Activation that implements the sigmoid activa
 Class {
 	#name : 'Sigmoid',
 	#superclass : 'Activation',
-	#category : 'AI-Neural-Network',
-	#package : 'AI-Neural-Network'
+	#category : 'AI-Neural-Network-Activation',
+	#package : 'AI-Neural-Network',
+	#tag : 'Activation'
 }
 
 { #category : 'accessing' }
