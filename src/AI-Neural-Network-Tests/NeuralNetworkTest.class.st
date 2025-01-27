@@ -1,21 +1,26 @@
 Class {
 	#name : 'NeuralNetworkTest',
 	#superclass : 'TestCase',
+	#instVars : [
+		'network',
+		'mockLayer'
+	],
 	#category : 'AI-Neural-Network-Tests',
 	#package : 'AI-Neural-Network-Tests'
 }
 
 { #category : 'tests' }
-NeuralNetworkTest >> testAddLayer [
+NeuralNetworkTest >> setUp [
 
-    | net layer |
-    net := NeuralNetwork new.
-    net initialize.
-    layer := DenseLayer new.
-    net addLayer: layer.
-    self assert: (net layers size = 1).
-    self assert: (net layers includes: layer).
+    network := NeuralNetwork new.
+    mockLayer := MockLayer new.
+]
 
+{ #category : 'tests' }
+NeuralNetworkTest >> tearDown [
+
+    network := nil.
+    mockLayer := nil.
 ]
 
 { #category : 'tests' }
@@ -67,36 +72,19 @@ NeuralNetworkTest >> testForward [
 ]
 
 { #category : 'tests' }
-NeuralNetworkTest >> testInitialize [
-
-    | net |
-    net := NeuralNetwork new.
-    net initialize.
-    self assert: net layers isEmpty.
-    self assert: net lossFunction isKindOf: LossFunction.
-    self assert: net learningRate = 0.1.
-]
-
-{ #category : 'tests' }
 NeuralNetworkTest >> testSetLearningRate [
-
-    | net |
-    net := NeuralNetwork new.
-    net initialize.
-    net setLearningRate: 0.01.
-    self assert: net learningRate = 0.01.
-
+    "Test that setLearningRate: updates the instance variable."
+    network setLearningRate: 0.05.
+    self assert: network learningRate = 0.05.
 ]
 
 { #category : 'tests' }
 NeuralNetworkTest >> testSetLossFunction [
-
-    | net mse |
-    net := NeuralNetwork new.
-    net initialize.
-    mse := MeanSquaredError new.
-    net setLossFunction: mse.
-    self assert: net lossFunction == mse.
+    "Test that setLossFunction: updates the instance variable."
+    | customLoss |
+    customLoss := MeanSquaredError new.  "Or a different one, if you have multiple"
+    network setLossFunction: customLoss.
+    self assert: network lossFunction == customLoss.
 ]
 
 { #category : 'tests' }

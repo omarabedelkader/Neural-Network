@@ -1,3 +1,6 @@
+"
+a mock class
+"
 Class {
 	#name : 'MockActivation',
 	#superclass : 'Object',

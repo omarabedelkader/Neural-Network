@@ -75,6 +75,30 @@ NeuralNetwork >> initialize [
     learningRate := 0.1.  "default"
 ]
 
+{ #category : 'accessing' }
+NeuralNetwork >> layers [
+
+	^ layers
+]
+
+{ #category : 'accessing' }
+NeuralNetwork >> layers: anObject [
+
+	layers := anObject
+]
+
+{ #category : 'accessing' }
+NeuralNetwork >> learningRate [
+
+	^ learningRate
+]
+
+{ #category : 'accessing' }
+NeuralNetwork >> lossFunction [
+
+	^ lossFunction
+]
+
 { #category : 'initialization' }
 NeuralNetwork >> predict: inputVector [ 
 
