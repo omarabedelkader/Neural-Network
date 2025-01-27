@@ -18,34 +18,34 @@ Class {
 { #category : 'initialization' }
 DenseLayer >> backward: dLoss_dOut [ 
 
-    | dLoss_dZ dLoss_dIn |
-    dLoss_dZ := Array new: outputSize.
-    dLoss_dIn := Array new: inputSize.
+	"Return dLoss_dZ for this layer and dLoss_dIn for the previous layer"
+   | dLoss_dZ dLoss_dIn |
+   dLoss_dZ := Array new: outputSize.
+   dLoss_dIn := Array new: inputSize.
 
-    "dLoss/dZ = dLoss/dOut * derivative(activation, Z)."
-    1 to: outputSize do: [:j |
-        dLoss_dZ at: j put: ((dLoss_dOut at: j) * 
+   "dLoss/dZ = dLoss/dOut * derivative(activation, Z)."
+   1 to: outputSize do: [:j |
+       dLoss_dZ at: j put: ((dLoss_dOut at: j) * 
                              (activation derivative: (lastZ at: j))).
+   ].
+
+   1 to: inputSize do: [:i |
+       | sum |
+       sum := 0.0.
+       1 to: outputSize do: [:j |
+           | wIndex |
+           wIndex := (j - 1) * inputSize + i.
+           sum := sum + (weights at: wIndex) * (dLoss_dZ at: j).
+       ].
+       dLoss_dIn at: i put: sum.
     ].
 
-    "Compute dLoss/dIn by summing over all outputs that feed the input."
-    1 to: inputSize do: [:i |
-        | sum |
-        sum := 0.0.
-        1 to: outputSize do: [:j |
-            | wIndex |
-            wIndex := (j - 1) * inputSize + i.
-            sum := sum + (weights at: wIndex) * (dLoss_dZ at: j).
-        ].
-        dLoss_dIn at: i put: sum.
-    ].
-
-    ^ { dLoss_dZ. dLoss_dIn }  "Return dLoss_dZ for this layer 
-                                and dLoss_dIn for the previous layer"
+    ^ { dLoss_dZ. dLoss_dIn }  
 ]
 
 { #category : 'initialization' }
 DenseLayer >> forward: inputVector [ 
+
     lastInput := inputVector copy.
     lastZ := Array new: outputSize withAll: 0.0.
     
@@ -61,7 +61,6 @@ DenseLayer >> forward: inputVector [
         lastZ at: outIdx put: sum.
     ].
 
-    "Apply activation to each output component."
     lastOutput := Array new: outputSize withAll: 0.0.
     1 to: outputSize do: [:i |
         lastOutput at: i put: (activation value: (lastZ at: i)).
@@ -72,6 +71,7 @@ DenseLayer >> forward: inputVector [
 
 { #category : 'initialization' }
 DenseLayer >> initialize [ 
+
     super initialize.
     weights := #() asFloatArray. 
     biases := #() asFloatArray.
@@ -84,26 +84,28 @@ DenseLayer >> initialize [
 
 { #category : 'initialization' }
 DenseLayer >> inputSize: anInteger outputSize: anotherInteger activation: anActivation [ 
-     | randomScale |   
+
+   | randomScale |   
 	inputSize := anInteger.
-    outputSize := anotherInteger.
-    activation := anActivation.
-    randomScale := 0.01.  "Simple small random scale, adjust if desired."
+   outputSize := anotherInteger.
+  	activation := anActivation.
+   randomScale := 0.01.
+
 	weights := ((1 to: inputSize * outputSize) collect: [:k |
     	(Random new next - 0.5) * randomScale
 	]) asArray asFloatArray.
 
-    "Initialize biases for each output neuron."
-    biases := (1 to: outputSize) collect: [:k |
-        (Random new next - 0.5) * randomScale
+   biases := (1 to: outputSize) collect: [:k |
+       (Random new next - 0.5) * randomScale
     ].
-    ^ self
+
+ ^ self
 ]
 
 { #category : 'initialization' }
 DenseLayer >> updateWeights: dLoss_dZ learningRate: learningRate [ 
-    "Update weights and biases using the gradients from backpropagation."
 
+    "Update weights and biases using the gradients from backpropagation."
     | gradientLossWithRespectToOutput |
     gradientLossWithRespectToOutput := dLoss_dZ.
 
@@ -122,7 +124,7 @@ DenseLayer >> updateWeights: dLoss_dZ learningRate: learningRate [
         biases at: j put: ((biases at: j) - (learningRate * (gradientLossWithRespectToOutput at: j))).
     ].
 
-    ^self "Return self for chaining or debugging"
+ 	^self 
 
 
 ]

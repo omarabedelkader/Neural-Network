@@ -5,7 +5,7 @@ Class {
 	#package : 'AI-Neural-Network'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'scoring' }
 MeanSquaredError >> derivative: predictions targets: actuals [ 
 
     | n grad |
@@ -17,7 +17,7 @@ MeanSquaredError >> derivative: predictions targets: actuals [
     ^ grad
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'scoring' }
 MeanSquaredError >> value: predictions targets: actuals [ 
 
     | sum n diff |
@@ -25,7 +25,7 @@ MeanSquaredError >> value: predictions targets: actuals [
     n := predictions size.
     1 to: n do: [:i |
         diff := (predictions at: i) - (actuals at: i).
-        sum := sum + diff * diff.
+        sum := sum + (diff * diff).
     ].
     ^ sum / n
 ]

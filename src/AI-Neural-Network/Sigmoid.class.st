@@ -15,6 +15,7 @@ Sigmoid >> derivative: x [
 
 { #category : 'accessing' }
 Sigmoid >> value: x [ 
+
     ^ 1.0 / (1.0 + (x negated exp))
 
 ]
