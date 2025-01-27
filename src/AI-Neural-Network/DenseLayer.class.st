@@ -24,6 +24,18 @@ Class {
 	#package : 'AI-Neural-Network'
 }
 
+{ #category : 'accessing' }
+DenseLayer >> activation [
+
+	^ activation
+]
+
+{ #category : 'accessing' }
+DenseLayer >> activation: anObject [
+
+	activation := anObject
+]
+
 { #category : 'initialization' }
 DenseLayer >> backward: dLoss_dOut [ 
 
@@ -50,6 +62,18 @@ DenseLayer >> backward: dLoss_dOut [
     ].
 
     ^ { dLoss_dZ. dLoss_dIn }  
+]
+
+{ #category : 'accessing' }
+DenseLayer >> biases [
+
+	^ biases
+]
+
+{ #category : 'accessing' }
+DenseLayer >> biases: anObject [
+
+	biases := anObject
 ]
 
 { #category : 'initialization' }
@@ -91,6 +115,18 @@ DenseLayer >> initialize [
 
 ]
 
+{ #category : 'accessing' }
+DenseLayer >> inputSize [
+
+	^ inputSize
+]
+
+{ #category : 'accessing' }
+DenseLayer >> inputSize: anObject [
+
+	inputSize := anObject
+]
+
 { #category : 'initialization' }
 DenseLayer >> inputSize: anInteger outputSize: anotherInteger activation: anActivation [ 
 
@@ -109,6 +145,54 @@ DenseLayer >> inputSize: anInteger outputSize: anotherInteger activation: anActi
     ].
 
  ^ self
+]
+
+{ #category : 'accessing' }
+DenseLayer >> lastInput [
+
+	^ lastInput
+]
+
+{ #category : 'accessing' }
+DenseLayer >> lastInput: anObject [
+
+	lastInput := anObject
+]
+
+{ #category : 'accessing' }
+DenseLayer >> lastOutput [
+
+	^ lastOutput
+]
+
+{ #category : 'accessing' }
+DenseLayer >> lastOutput: anObject [
+
+	lastOutput := anObject
+]
+
+{ #category : 'accessing' }
+DenseLayer >> lastZ [
+
+	^ lastZ
+]
+
+{ #category : 'accessing' }
+DenseLayer >> lastZ: anObject [
+
+	lastZ := anObject
+]
+
+{ #category : 'accessing' }
+DenseLayer >> outputSize [
+
+	^ outputSize
+]
+
+{ #category : 'accessing' }
+DenseLayer >> outputSize: anObject [
+
+	outputSize := anObject
 ]
 
 { #category : 'initialization' }
@@ -136,4 +220,16 @@ DenseLayer >> updateWeights: dLoss_dZ learningRate: learningRate [
  	^self 
 
 
+]
+
+{ #category : 'accessing' }
+DenseLayer >> weights [
+
+	^ weights
+]
+
+{ #category : 'accessing' }
+DenseLayer >> weights: anObject [
+
+	weights := anObject
 ]
