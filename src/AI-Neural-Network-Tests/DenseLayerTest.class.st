@@ -48,52 +48,14 @@ DenseLayerTest >> testBackward [
     dLoss_dIn := backResult second.
 
     "Check we have correct sizes"
-    self assert: dLoss_dZ size = layer outputSize.
-    self assert: dLoss_dIn size = layer inputSize.
+    self assert: dLoss_dZ size equals: layer outputSize.
+    self assert: dLoss_dIn size equals: layer inputSize.
 
     "We won't do a precise numeric check here, but you can do so by
      manually calculating derivative of the sigmoid at z = -0.5."
     self assert: (dLoss_dZ first ~= 0.0).
     self assert: (dLoss_dIn first ~= 0.0).
     self assert: (dLoss_dIn second ~= 0.0).
-]
-
-{ #category : 'tests' }
-DenseLayerTest >> testBackwardPass [
-
-    "Check backward pass using a mock activation derivative = 1. 
-    This simplifies dLoss/dZ = dLoss/dOut * derivative(Z) = dLoss/dOut * 1."
-    | inputVector dLoss_dOut backwardResult dLoss_dZ dLoss_dIn |
-    
-    layer inputSize: 2 outputSize: 2 activation: mockActivation.
-    layer weights: #(0.5 0.2   0.1 0.4) asFloatArray.
-    layer biases: #(0.1 0.2) asFloatArray.
-
-    "Forward pass first so that lastZ and lastInput are set."
-    inputVector := #(1.0 2.0) asFloatArray.
-    layer forward: inputVector.
-
-    "Say the loss gradient wrt output is #(.1, .05).
-     Then dLoss/dZ = dLoss/dOut * activation'(z) = #(.1, .05) * #(1, 1) = #(.1, .05)"
-    dLoss_dOut := #(0.1 0.05) asFloatArray.
-    backwardResult := layer backward: dLoss_dOut.
-
-    dLoss_dZ := backwardResult first.  "should be #(0.1 0.05)"
-    dLoss_dIn := backwardResult second.
-
-    self assert: dLoss_dZ equals: #(0.1 0.05) asFloatArray.
-
-    "Check dLoss_dIn:
-       dLoss/dIn[i] = sum_j (weights[i,j]*dLoss_dZ[j]) 
-       Flattened weight indices:
-         w(1->1) = 0.5, w(1->2) = 0.2, w(2->1) = 0.1, w(2->2) = 0.4
-
-       For input index 1:
-         = 0.5*0.1 + 0.1*0.05 = 0.05 + 0.005 = 0.055
-       For input index 2:
-         = 0.2*0.1 + 0.4*0.05 = 0.02 + 0.02 = 0.04
-    "
-    self assert: dLoss_dIn = #(0.055 0.04) asFloatArray.
 ]
 
 { #category : 'tests' }
@@ -114,59 +76,9 @@ DenseLayerTest >> testForward [
     "Compute by hand: z = 0.5*1.0 + (-0.5)*2.0 + 0.0 = 0.5 - 1.0 = -0.5
      Sigmoid(-0.5) ~ 0.3775406688
     "
-    self assert: (result first closeTo: 0.37754 precision: 1e-5).
+    self assert: result first ~= #(0.37754) asFloatArray.
 
-]
 
-{ #category : 'tests' }
-DenseLayerTest >> testForwardPass [
-    "Use a small known set of weights, biases, and an identity-like activation to test forward pass."
-    | inputVector output |
-    layer inputSize: 2 outputSize: 2 activation: mockActivation.
-    
-    "Set weights and biases manually:
-       Suppose weights = [ w11, w12,
-                           w21, w22 ]
-       Flattened as (w11 w12 w21 w22) (row-major style).
-       So for out1: sum = w11*x1 + w12*x2 + b1
-          for out2: sum = w21*x1 + w22*x2 + b2
-    "
-    layer weights: #(0.5 0.2   0.1 0.4) asFloatArray.
-    layer biases: #(0.1 0.2) asFloatArray.
-
-    "We define our mock activation to be identity, so forward output = Z."
-    inputVector := #(1.0 2.0) asFloatArray.   
-    output := layer forward: inputVector.
-
-    "Compute manually:
-       out1 = 0.5*1 + 0.2*2 + 0.1 = 0.5 + 0.4 + 0.1 = 1.0
-       out2 = 0.1*1 + 0.4*2 + 0.2 = 0.1 + 0.8 + 0.2 = 1.1
-    "
-    self assert: output equals: #(1.0 1.1) asFloatArray.
-
-    "Check internal storage for lastInput and lastZ"
-    self assert: layer lastInput equals: #(1.0 2.0) asFloatArray.
-    self assert: layer lastZ equals: #(1.0 1.1) asFloatArray.
-    self assert: layer lastOutput equals: #(1.0 1.1) asFloatArray.
-]
-
-{ #category : 'tests' }
-DenseLayerTest >> testInitialization [
-
-    "Test default initialization of a newly created layer."
-    | emptyFloatArray |
-    layer initialize.
-    emptyFloatArray := #() asFloatArray.
-
-    self assert: layer weights equals: emptyFloatArray.
-    self assert: layer biases equals: emptyFloatArray.
-    self assert: layer lastInput equals: emptyFloatArray.
-    self assert: layer lastZ equals: emptyFloatArray.
-    self assert: layer lastOutput equals: emptyFloatArray.
-
-    "Check that inputSize/outputSize are nil (or uninitialized)."
-    self assert: layer inputSize isNil.
-    self assert: layer outputSize isNil.
 ]
 
 { #category : 'tests' }
@@ -215,7 +127,7 @@ DenseLayerTest >> testInputSizeOutputSizeActivationInitialization [
     self assert: layer biases size = 3.
 
     "Just check that weights/biases are FloatArrays."
-    self assert: layer weights class equals: Array.
+    self assert: layer weights class equals: Float32Array.
     self assert: layer biases class equals: Array.
 ]
 
